@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Планувальник</title>
+  <style>
+    body { margin:0; font-family:sans-serif; background:#f0f2f5; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .container { width:100%; max-width:600px; background:white; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); display:flex; flex-direction:column; height:80vh; }
+    header { background:#4a90e2; color:white; padding:1rem; text-align:center; font-size:1.2rem; }
+    #chat-container { flex:1; padding:1rem; overflow-y:auto; display:flex; flex-direction:column; gap:0.5rem; }
+    .message { max-width:80%; padding:0.7rem 1rem; border-radius:10px; }
+    .user-message { background:#daf1da; align-self:flex-end; }
+    .bot-message  { background:#e0e0e0; align-self:flex-start; }
+    form { display:flex; padding:0.5rem; border-top:1px solid #ddd; }
+    #user-input { flex:1; padding:0.7rem; border:1px solid #ccc; border-radius:5px; font-size:1rem; }
+    button { margin-left:0.5rem; padding:0.7rem 1.2rem; background:#4a90e2; border:none; color:white; border-radius:5px; cursor:pointer; }
+    button:hover { background:#357bd8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>🤖 AI Планувальник</header>
+
+    <!-- Ось контейнер чату: переконайся, що id саме такий -->
+    <div id="chat-container"></div>
+
+    <!-- Ось форма: переконайся, що id саме такий -->
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Напиши план або запит..." autocomplete="off" required />
+      <button type="submit">Надіслати</button>
+    </form>
+  </div>
+
+  <!-- Підключення скрипта з правильним шляхом -->
+  <script src="/static/script.js" defer></script>
+</body>
+</html>
