@@ -2,17 +2,16 @@
 console.log("✅ script.js виконався");  // Перевірка підключення
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ DOM завантажено");   // Перевірка DOMContentLoaded
+  console.log("✅ DOM завантажено");
 
-  // Тепер одразу отримуємо елементи, яких точно має вистачати:
   const chatContainer = document.getElementById("chat-container");
-  const form          = document.getElementById("chat-form");
-  const input         = document.getElementById("user-input");
+  const form = document.getElementById("chat-form");
+  const input = document.getElementById("user-input");
 
   console.log("form:", form, "input:", input, "chatContainer:", chatContainer);
 
   if (!chatContainer || !form || !input) {
-    console.error("❌ Якийсь елемент не знайдено у DOM."); 
+    console.error("❌ Якийсь елемент не знайдено у DOM.");
     return;
   }
 
@@ -26,15 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // Очистимо інпут
     input.value = "";
 
-    // Відправимо запит на бекенд
     try {
       const res = await fetch("/chat/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message })
       });
+
+      // Перевірка статусу
+      if (!res.ok) {
+        const errorText = await res.text();  // <- читаємо як текст
+        throw new Error(`❌ Server returned ${res.status}: ${errorText}`);
+      }
+
+      // Парсимо JSON
       const data = await res.json();
-      console.log("AI response:", data);
+      console.log("✅ AI response:", data);
 
       // Додаємо відповідь бота
       const botDiv = document.createElement("div");
@@ -43,11 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
       chatContainer.appendChild(botDiv);
       chatContainer.scrollTop = chatContainer.scrollHeight;
     } catch (err) {
-      console.error("❌ Помилка при fetch:", err);
+      console.error("❌ Помилка при fetch:", err.message || err);
+
+      const errorDiv = document.createElement("div");
+      errorDiv.classList.add("message", "bot-message", "error-message");
+      errorDiv.textContent = `⚠️ Помилка: ${err.message || "невідома"}`;
+      chatContainer.appendChild(errorDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
     }
   }
 
-  // Відправка через форму (кнопка)
+  // Відправка через кнопку
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const message = input.value.trim();
