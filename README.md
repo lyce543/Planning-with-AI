@@ -1,4 +1,3 @@
-# GitHub-Code-Analyzer
 # GitHub Code Analyzer
 
 A web tool for exploring and querying GitHub repositories using AI. Clone any public repository, browse its files, and ask questions about the codebase — answers are generated in real time using RAG (Retrieval-Augmented Generation) powered by OpenAI.
