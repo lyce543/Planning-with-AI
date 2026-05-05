@@ -1,12 +1,1 @@
 .env
-__pycache__/
-*.pyc
-*.pyo
-repos/
-vectorstore/
-repo_state.json
-.vscode/
-.idea/
-*.egg-info/
-dist/
-build/
